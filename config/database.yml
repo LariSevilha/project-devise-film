@@ -1,0 +1,9 @@
+development: 
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: postgres
+  password: 1234
+  host: postgres
+  port: 5432
+  database: biblioteca_de_filmes_development
