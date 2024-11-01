@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MovieFilter
   class << self
 
@@ -5,7 +7,7 @@ class MovieFilter
       Movie.all
     end
 
-    def search_by_id(id)
+    def find_by(id)
       Movie.find(id)
     end
 

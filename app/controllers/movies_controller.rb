@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class MoviesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_movie, only: %i[ show edit update destroy ]
+  before_action :set_movie, only: %i[show edit update destroy]
 
   # GET /movies or /movies.json
   def index
@@ -8,8 +10,7 @@ class MoviesController < ApplicationController
   end
 
   # GET /movies/1 or /movies/1.json
-  def show
-  end
+  def show; end
 
   # GET /movies/new
   def new
@@ -17,8 +18,7 @@ class MoviesController < ApplicationController
   end
 
   # GET /movies/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /movies or /movies.json
   def create
@@ -26,7 +26,7 @@ class MoviesController < ApplicationController
 
     respond_to do |format|
       if MovieService.save(@movie)
-        format.html { redirect_to @movie, notice: "Movie was successfully created." }
+        format.html { redirect_to @movie, notice: 'Movie was successfully created.' }
         format.json { render :show, status: :created, location: @movie }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -39,7 +39,7 @@ class MoviesController < ApplicationController
   def update
     respond_to do |format|
       if MovieService.update(@movie,movie_params)
-        format.html { redirect_to @movie, notice: "Movie was successfully updated." }
+        format.html { redirect_to @movie, notice: 'Movie was successfully updated.' }
         format.json { render :show, status: :ok, location: @movie }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -53,19 +53,20 @@ class MoviesController < ApplicationController
     MovieService.destroy(@movie)
 
     respond_to do |format|
-      format.html { redirect_to movies_path, status: :see_other, notice: "Movie was successfully destroyed." }
+      format.html { redirect_to movies_path, status: :see_other, notice: 'Movie was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_movie
-      @movie = MovieFilter.search_by_id(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def movie_params
-      params.require(:movie).permit(:title, :descript, :release_year)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_movie
+    @movie = MovieFilter.find_by(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def movie_params
+    params.require(:movie).permit(:title, :descript, :release_year, photos: [])
+  end
 end

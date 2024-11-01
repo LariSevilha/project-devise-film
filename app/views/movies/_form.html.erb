@@ -25,7 +25,10 @@
     <%= form.label :release_year, style: "display: block" %>
     <%= form.date_field :release_year %>
   </div>
-
+  <div class="field">
+    <%= form.label :photos %>
+    <%= form.file_field :photos, multiple: true, direct_upload: true %>
+  </div>
   <div>
     <%= form.submit %>
   </div>

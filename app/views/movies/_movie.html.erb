@@ -1,4 +1,11 @@
 <div id="<%= dom_id movie %>">
+
+  <%if @movie && @movie.photos.attached?%>
+   <% @movie.photos.each do |photo| %>  
+     <%= image_tag photo %>
+   <%end%>
+  <%end%>
+
   <p>
     <strong>Title:</strong>
     <%= movie.title %>
