@@ -14,4 +14,13 @@ class Movie < ApplicationRecord
       errors.add(:photos, 'O arquivo deve ser JPEG ou PNG') unless photo.content_type.in?('image/jpeg', 'image/png')
     end
   end
+  def photo_size_validation
+    if photos.attached?
+    photos.each do |photo|
+     if photo.byte_size > 5.megabytes
+       errors.add(:photos, 'deve ser menor que 5MB')
+     end
+    end
+   end
+  end
 end

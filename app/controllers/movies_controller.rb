@@ -57,7 +57,13 @@ class MoviesController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  def destroy_photo
+    @movie = Movie.find(params[:id])
+    photo = @movie.photos.find_by_id(params[:photo_id])
+    photo.purge # Remove a foto do Active Storage
+    redirect_to movie_path(@movie), notice: 'Foto removida com
+    sucesso.'
+  end
   private
 
   # Use callbacks to share common setup or constraints between actions.

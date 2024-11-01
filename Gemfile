@@ -15,6 +15,8 @@ gem 'i18n', '~> 1.8'
 gem "image_processing", ">= 1.2"
 gem "puma", ">= 5.0"
 gem 'rubocop', require: false
+gem "sassc-rails"
+
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem "importmap-rails"
 # Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]
