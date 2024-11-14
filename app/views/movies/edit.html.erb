@@ -1,12 +1,33 @@
+<style>
+.link-buttons {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.btn-link {
+  background-color: #ffa500;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  margin: 0 5px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-link:hover {
+  background-color: #ff8c00;
+}
+</style>
 <% content_for :title, "Editing movie" %>
 
-<h1>Editing movie</h1>
+<h1 class="text-center">Editar filme</h1>
 
 <%= render "form", movie: @movie %>
 
 <br>
 
-<div>
-  <%= link_to "Show this movie", @movie %> |
-  <%= link_to "Back to movies", movies_path %>
+<div class="link-buttons">
+  <%= link_to "Mostrar filmes", @movie, class: 'btn-link' %> |
+  <%= link_to "Voltar", movies_path, class: 'btn-link' %>
 </div>

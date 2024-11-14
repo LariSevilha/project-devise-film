@@ -1,11 +1,29 @@
-<% content_for :title, "New movie" %>
-
-<h1>New movie</h1>
+<h1><%=t('activerecord.attributes.movie.titles.new')%></h1>
 
 <%= render "form", movie: @movie %>
 
 <br>
 
-<div>
-  <%= link_to "Back to movies", movies_path %>
+<div class="btn-back">
+  <%= link_to t('activerecord.attributes.movie.buttons.back'), movies_path, class: 'back-button' %>
 </div>
+<style>
+.back-button {
+  display: inline-block;
+  background-color: #ffa500;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer; 
+}
+
+.back-button:hover {
+  background-color: #ff8c00;
+}
+.btn-back{
+  display: flex;
+  justify-content: center;
+}
+</style>

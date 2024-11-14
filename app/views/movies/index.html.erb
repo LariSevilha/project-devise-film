@@ -1,18 +1,94 @@
-<p style="color: green"><%= notice %></p>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 0;
+}
 
-<p> Olá, <%=user_signed_in? ? current_user.email : 'visitante'%></p>
-<%= button_to "Sair", destroy_user_session_path, method: :delete%>
-<% content_for :title, "Movies" %>
+.index-movie {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-<h1><%=t('activerecord.attributes.index') %></h1>
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
-  <% end %>
+.header p {
+  margin: 0;
+}
+
+.header .logout-button {
+  background-color: #ff7043;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header .logout-button:hover {
+  background-color: #ff5722;
+}
+
+.notice {
+  color: green;
+  margin-bottom: 20px;
+}
+
+h1 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+#movies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.new-movie-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-top: 20px;
+}
+
+.new-movie-button:hover {
+  background-color: #ff8c00;
+}
+</style>
+
+<div class="container  index-movie">
+  <div class="header">
+    <p>Olá <%= user_signed_in? ? current_user.email : 'visitante' %></p>
+    <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'logout-button' %>
+  </div>
+
+  <p class="notice"><%= notice %></p>
+
+  <h1><%= t('activerecord.attributes.index') %></h1>
+
+  <div id="movies">
+    <% @movies.each do |movie| %>
+      <%= render movie %>
+    <% end %>
+  </div>
+
+  <%= link_to t('activerecord.attributes.movie.buttons.new'), new_movie_path, class: 'new-movie-button' %>
 </div>
-
-<%= link_to "New movie", new_movie_path %>

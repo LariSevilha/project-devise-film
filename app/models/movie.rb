@@ -3,7 +3,7 @@
 class Movie < ApplicationRecord
   has_many_attached :photos
 
-  validates :correct_photo_mime_type
+  validate :correct_photo_mime_type
 
   private
 

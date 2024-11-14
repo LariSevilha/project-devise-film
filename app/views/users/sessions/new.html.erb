@@ -1,26 +1,107 @@
-<h2>Log in</h2>
+<style>
+/* CSS para estilização do formulário de autenticação */
+.entrar {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  background-color: #f7f7f7;
+  font-family: 'Helvetica Neue', sans-serif;
+}
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div>
+.field {
+  margin-bottom: 20px;
+}
 
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "current-password" %>
-  </div>
+.field label {
+  font-weight: bold;
+  color: #444;
+  display: block;
+  margin-bottom: 8px;
+}
 
-  <% if devise_mapping.rememberable? %>
+.field input[type="email"],
+.field input[type="password"],
+.field input[type="checkbox"] {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.field input[type="email"]:focus,
+.field input[type="password"]:focus {
+  border-color: #ff9800;
+  box-shadow: 0px 0px 8px rgba(255, 152, 0, 0.5);
+}
+
+.field input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+}
+
+.actions {
+  margin-top: 25px;
+  text-align: center;
+}
+
+.actions input[type="submit"] {
+  background-color: #ff9800;
+  border: none;
+  color: #fff;
+  padding: 12px 25px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.actions input[type="submit"]:hover {
+  background-color: #e68900;
+}
+
+@media (max-width: 576px) {
+  .field label {
+    text-align: left;
+  }
+
+  .actions input[type="submit"] {
+    width: 100%;
+    padding: 14px;
+  }
+}
+</style>
+
+<div class="entrar">
+  <h2>Entrar</h2>
+
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+      <%= f.label :email %><br />
+      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :password %><br />
+      <%= f.password_field :password, autocomplete: "current-password" %>
+    </div>
+
+    <% if devise_mapping.rememberable? %>
+      <div class="field">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end %>
+
+    <div class="actions">
+      <%= f.submit "Entrar" %>
     </div>
   <% end %>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+  <%= render "users/shared/links" %>
+</div>

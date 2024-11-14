@@ -1,35 +1,107 @@
-<div id="<%= dom_id movie %>">
+<style>
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
 
-  <%if @movie && @movie.photos.attached?%>
-   <% @movie.photos.each do |photo| %>  
-     <%= image_tag photo %>
-   <%end%>
-  <%end%>
+.movie-container {
+  width: 100%;
+  max-width: 350px;
+  padding: 20px;
+  border: 1px solid #ffa500;
+  border-radius: 10px;
+  background-color: #fff3e0;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
-  <p>
-    <strong>Title:</strong>
-    <%= movie.title %>
-  </p>
+.photo-item {
+  position: relative;
+  margin-bottom: 15px;
+}
 
-  <p>
-    <strong>Descript:</strong>
-    <%= movie.descript %>
-  </p>
+.photo-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 
-  <p>
-    <strong>Release year:</strong>
-    <%= movie.release_year %>
-  </p>
+.delete-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ff7043;
+  color: white;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 12px;
+}
 
-  <% if @movie && @movie.photos.attached? %>
-   <% @movie.photos.each do |photo| %>
-    <div class="photo-item">
-     <%= image_tag photo %>
-       <%= button_to t('actions.delete'),
-       destroy_photo_movie_path(@movie, photo_id: photo.id), method: :delete, data: { confirm: 'Tem certeza de que deseja excluir esta foto?' }, class: 'btn btn-danger btn-sm' %>
+.delete-button:hover {
+  background-color: #ff5722;
+}
+
+.movie-detail {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.movie-detail strong {
+  color: #ff7043;
+}
+
+.details-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background-color: #ffa500;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  margin-top: 15px;
+}
+
+.details-button:hover {
+  background-color: #ff8c00;
+}
+</style>
+
+<div class="container">
+  <div id="<%= dom_id(movie) %>" class="movie-container">
+    <% if @movie && @movie.photos.attached? %>
+      <% @movie.photos.each do |photo| %>
+        <div class="photo-item">
+          <%= image_tag photo, class: 'photo-image' %>
+          <%= button_to '×', destroy_photo_movie_path(@movie, photo_id: photo.id),
+                        method: :delete, 
+                        data: { confirm: 'Tem certeza de que deseja excluir esta foto?' },
+                        class: 'delete-button' %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class="movie-detail">
+      <strong><%= t('activerecord.attributes.movie.title') %>:</strong> <%= movie.title %>
     </div>
-   <% end %>
-  <% end %>
+    <div class="movie-detail">
+      <strong><%= t('activerecord.attributes.movie.description') %>:</strong> <%= movie.descript %>
+    </div>
+    <div class="movie-detail">
+      <strong><%= t('activerecord.attributes.movie.release_year') %>:</strong> <%= movie.release_year %>
+    </div>
 
-
+    <%= link_to 'Ver detalhes', movie_path(movie), class: 'details-button' %>
+  </div>
 </div>

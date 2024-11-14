@@ -1,35 +1,108 @@
-<%= form_with(model: movie) do |form| %>
-  <% if movie.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+<style>
+/* CSS para estilização do formulário de filmes */
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-      <ul>
-        <% movie.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+.form-container h2 {
+  color: red;
+}
+
+.form-container ul {
+  color: red;
+  padding-left: 20px;
+}
+
+.form-container .field {
+  margin-bottom: 15px;
+}
+
+.form-container .field label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-container .field input[type="text"],
+.form-container .field input[type="date"],
+.form-container .field input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-container .field input[type="text"]:focus,
+.form-container .field input[type="date"]:focus,
+.form-container .field input[type="file"]:focus {
+  border-color: #ffa500;
+  box-shadow: 0px 0px 5px rgba(255, 165, 0, 0.5);
+}
+
+.form-container .actions {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.form-container .actions input[type="submit"] {
+  background-color: #ffa500;
+  border: none;
+  color: #fff;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.form-container .actions input[type="submit"]:hover {
+  background-color: #ff8c00;
+}
+</style>
+
+<div class="form-container">
+  <%= form_with(model: movie) do |form| %>
+    <% if movie.errors.any? %>
+      <div>
+        <h2><%= pluralize(movie.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+        <ul>
+          <% movie.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= form.label :title %>
+      <%= form.text_field :title %>
+    </div>
+
+    <div class="field">
+      <%= form.label :description %>
+      <%= form.text_field :description %>
+    </div>
+
+    <div class="field">
+      <%= form.label :release_year %>
+      <%= form.date_field :release_year %>
+    </div>
+
+    <div class="field">
+      <%= form.label :photos %>
+      <%= form.file_field :photos, multiple: true, direct_upload: true %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
-  </div>
-
-  <div>
-    <%= form.label :descript, style: "display: block" %>
-    <%= form.text_field :descript %>
-  </div>
-
-  <div>
-    <%= form.label :release_year, style: "display: block" %>
-    <%= form.date_field :release_year %>
-  </div>
-  <div class="field">
-    <%= form.label :photos %>
-    <%= form.file_field :photos, multiple: true, direct_upload: true %>
-  </div>
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
